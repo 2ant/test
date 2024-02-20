@@ -22,17 +22,14 @@
         transform: scale(-1, 1);
       }
     </style>
-	 <script type="importmap">
-		{
-			"imports": {
-				"three": "https://threejs.org/build/three.module.js",
-				"three/addons/": "https://threejs.org/examples/jsm/"
-			}
-		}
-
-		import *as THREE from "three"
-		import {STLLoader} from "three/addons/loaders/STLLoader.js"
-		</script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://threejs.org/build/three.module.js",
+          "three/addons/": "https://threejs.org/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <h1>Barcode marker example with Three.js</h1>
@@ -60,7 +57,10 @@
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/STLLoader.js"></script> -->
 
-    <script>
+    <script type="module">
+      import * as THREE from "three";
+      import { STLLoader } from "three/addons/loaders/STLLoader.js";
+
       window.ARThreeOnLoad = function () {
         ARController.getUserMediaThreeScene({
           maxARVideoSize: 320,
@@ -104,26 +104,26 @@
             // See /doc/patterns/Matrix code 3x3 (72dpi)/20.png
             var markerRoot = arController.createThreeBarcodeMarker(20);
 
-            // var loader = new THREE.STLLoader();
-            // loader.load('/Models/Base.stl', function(geometry) {
-            //   var material = new THREE.MeshNormalMaterial();
-            //   material.flatShading;
-            //   var mesh = new THREE.Mesh(geometry, material);
-            //   mesh.scale.set(1, 1, 1); // Adjust scale as needed
-            //   mesh.position.z =0.5; // Adjust position as needed
-            //   //var markerRoot = arController.createThreeBarcodeMarker(20);
-            //   markerRoot.add(mesh);
-            //   arScene.scene.add(markerRoot);
-            // });
+            var loader = new THREE.STLLoader();
+            loader.load('/Models/Base.stl', function(geometry) {
+              var material = new THREE.MeshNormalMaterial();
+              material.flatShading;
+              var mesh = new THREE.Mesh(geometry, material);
+              mesh.scale.set(1, 1, 1); // Adjust scale as needed
+              mesh.position.z =0.5; // Adjust position as needed
+              //var markerRoot = arController.createThreeBarcodeMarker(20);
+              markerRoot.add(mesh);
+              arScene.scene.add(markerRoot);
+            });
 
-            var sphere = new THREE.Mesh(
-              new THREE.CubeGeometry(1, 1, 1),
-              new THREE.MeshNormalMaterial()
-            );
-            sphere.material.flatShading;
-            sphere.position.z = 0.5;
-            markerRoot.add(sphere);
-            arScene.scene.add(markerRoot);
+            // var sphere = new THREE.Mesh(
+            //   new THREE.CubeGeometry(1, 1, 1),
+            //   new THREE.MeshNormalMaterial()
+            // );
+            // sphere.material.flatShading;
+            // sphere.position.z = 0.5;
+            // markerRoot.add(sphere);
+            // arScene.scene.add(markerRoot);
 
             var rotationV = 0;
             var rotationTarget = 0;
