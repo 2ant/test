@@ -101,6 +101,37 @@
               document.body.firstChild
             );
 
+            var mouse = new THREE.Vector2();
+            var raycaster = new THREE.Raycaster();
+
+            function updateRaycaster() {
+              // Update the picking ray with the camera and mouse position
+              raycaster.setFromCamera(mouse, ARController.arCamera); // Assuming `arCamera` is your Three.js camera
+            }
+
+            function highlightIntersectedObject() {
+              // Calculate objects intersecting the picking ray
+              var intersects = raycaster.intersectObjects(
+                arScene.scene.children,
+                true
+              );
+
+              for (var i = 0; i < intersects.length; i++) {
+                // Assumes the intersected object's material supports color change
+                intersects[i].object.material.color.set(0xff0000); // Change color to red
+                // To revert back to original color on mouse out, you'd store the original color and reset it for non-intersected objects
+              }
+            }
+
+            function onMouseMove(event) {
+              // Calculate mouse position in normalized device coordinates
+              // (-1 to +1) for both components
+              mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+              mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            }
+
+            window.addEventListener("mousemove", onMouseMove, false);
+
             // See /doc/patterns/Matrix code 3x3 (72dpi)/20.png
             var markerRoot = arController.createThreeBarcodeMarker(20);
 
@@ -112,7 +143,7 @@
               mesh.scale.set(1, 1, 1); // Adjust scale as needed
               mesh.position.z = 0.5; // Adjust position as needed
               //var markerRoot = arController.createThreeBarcodeMarker(20);
-              mesh.scale.multiplyScalar(.1)
+              mesh.scale.multiplyScalar(0.1);
               markerRoot.add(mesh);
               arScene.scene.add(markerRoot);
             });
@@ -139,6 +170,8 @@
             );
 
             var tick = function () {
+              updateRaycaster();
+              highlightIntersectedObject();
               arScene.process();
               arScene.renderOn(renderer);
               // 		rotationV += (rotationTarget - sphere.rotation.z) * 0.05;
