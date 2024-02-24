@@ -25,9 +25,8 @@
     <script type="importmap">
       {
         "imports": {
-          "three": "https://unpkg.com/three@0.107.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.107.0/examples/jsm/"
-
+          "three": "https://unpkg.com/three@0.113.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.113.0/examples/jsm/"
         }
       }
     </script>
@@ -54,7 +53,7 @@
 
     <script async src="./js/artoolkit.three.js"></script>
 
-    <script async src="./js/artoolkit.three.js"></script>
+    <!-- <script async src="./js/artoolkit.three.js"></script> -->
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/STLLoader.js"></script> -->
 
@@ -106,12 +105,12 @@
             var markerRoot = arController.createThreeBarcodeMarker(20);
 
             var loader = new STLLoader();
-            loader.load('./Models/Base.stl', function(geometry) {
+            loader.load("./Models/Base.stl", function (geometry) {
               var material = new THREE.MeshNormalMaterial();
               material.flatShading;
               var mesh = new THREE.Mesh(geometry, material);
               mesh.scale.set(1, 1, 1); // Adjust scale as needed
-              mesh.position.z =0.5; // Adjust position as needed
+              mesh.position.z = 0.5; // Adjust position as needed
               //var markerRoot = arController.createThreeBarcodeMarker(20);
               markerRoot.add(mesh);
               arScene.scene.add(markerRoot);
