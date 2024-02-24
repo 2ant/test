@@ -149,10 +149,10 @@ let mk = new THREE.Mesh(new THREE.BoxGeometry(.1,.1,.01));
             const x = (rect.right-event.clientX )/rect.width;
             const y = (rect.bottom-event.clientY)/rect.height;
             
-            mouse.x = x * 2 - 1;// (event.clientX / window.innerWidth)
-            mouse.y = -y* 2 + 1;//(event.clientY / window.innerHeight)
-            mouse.x*=.85;
-            mouse.y*=.65;//rect.height/rect.width;
+            mouse.x = (x * 2 - 1);// (event.clientX / window.innerWidth)
+            mouse.y = (-y* 2 + 1);//(event.clientY / window.innerHeight)
+            // mouse.x*=.85;
+            // mouse.y*=.65;//rect.height/rect.width;
           }
 
           renderer.domElement.addEventListener("pointermove", onMouseMove, false);
